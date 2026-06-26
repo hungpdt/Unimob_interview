@@ -19,42 +19,42 @@ namespace Farm
         // Extra screen pixels above the box so the pointer sits right on top of it.
         [SerializeField] private float _yOffset = 60f;
 
-        private BoxController _target;
+        private ConstructionController _target;
 
-        public void Bind(BoxController box)
+        public void Bind(ConstructionController construction)
         {
-            if (box == null)
+            if (construction == null)
             {
-                Debug.LogError("[ConstructionBuildViewController] box is null.", this);
+                Debug.LogError("[ConstructionBuildViewController] construction is null.", this);
                 return;
             }
 
-            _target = box;
+            _target = construction;
 
             if (_nameText != null)
             {
-                _nameText.text = box.Config.DisplayName;
+                _nameText.text = construction.Config.DisplayName;
             }
 
             if (_costText != null)
             {
-                _costText.text = NumberFormatter.Format(box.Config.BuildCost);
+                _costText.text = NumberFormatter.Format(construction.Config.BuildCost);
             }
 
             if (_productIcon != null)
             {
-                _productIcon.sprite = box.Config.Icon;
-                _productIcon.enabled = box.Config.Icon != null;
+                _productIcon.sprite = construction.Config.Icon;
+                _productIcon.enabled = construction.Config.Icon != null;
             }
 
             if (_unlockButton != null)
             {
                 _unlockButton.onClick.RemoveListener(OnUnlockClicked);
                 _unlockButton.onClick.AddListener(OnUnlockClicked);
-                _unlockButton.interactable = GameManager.Instance.Currency.CanAfford(box.Config.BuildCost);
+                _unlockButton.interactable = GameManager.Instance.Currency.CanAfford(construction.Config.BuildCost);
             }
 
-            PositionAbove(box.transform);
+            PositionAbove(construction.transform);
         }
 
         public override void OnShow()

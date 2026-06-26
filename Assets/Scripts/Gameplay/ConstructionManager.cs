@@ -5,7 +5,7 @@ namespace Farm
 {
     public class ConstructionManager : MonoBehaviour
     {
-        [SerializeField] private BoxController[] _boxes;
+        [SerializeField] private ConstructionController[] _plots;
 
         private readonly List<ConstructionController> _constructions = new List<ConstructionController>();
 
@@ -19,22 +19,22 @@ namespace Farm
                 return;
             }
 
-            if (_boxes == null || _boxes.Length == 0)
+            if (_plots == null || _plots.Length == 0)
             {
-                Debug.LogError("[ConstructionManager] _boxes is not assigned in the Inspector.", this);
+                Debug.LogError("[ConstructionManager] _plots is not assigned in the Inspector.", this);
                 return;
             }
 
-            int count = Mathf.Min(_boxes.Length, config.Constructions.Length);
+            int count = Mathf.Min(_plots.Length, config.Constructions.Length);
             for (int i = 0; i < count; i++)
             {
-                if (_boxes[i] == null)
+                if (_plots[i] == null)
                 {
-                    Debug.LogError($"[ConstructionManager] _boxes[{i}] is null.", this);
+                    Debug.LogError($"[ConstructionManager] _plots[{i}] is null.", this);
                     continue;
                 }
 
-                _boxes[i].Initialize(config.Constructions[i], i);
+                _plots[i].Initialize(config.Constructions[i], i);
             }
         }
 
