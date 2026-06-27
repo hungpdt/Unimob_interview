@@ -1036,11 +1036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2bf306798b9cc459ec933c873e2f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &970897385 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1093446925927276690, guid: 7dc6442f4f2b74ee58012c89cba62b9d, type: 3}
-  m_PrefabInstance: {fileID: 1962760872}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1017210820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2371,10 +2366,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2997557034086638700, guid: 7dc6442f4f2b74ee58012c89cba62b9d, type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2997557034086638700, guid: 7dc6442f4f2b74ee58012c89cba62b9d, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
@@ -2397,22 +2388,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1201501036871561121, guid: 7dc6442f4f2b74ee58012c89cba62b9d, type: 3}
   m_PrefabInstance: {fileID: 1962760872}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1962760877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 970897385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d244f91958776e4f9a272e3125eefea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _levelText: {fileID: 0}
-  _nameText: {fileID: 0}
-  _costText: {fileID: 0}
-  _descriptionText: {fileID: 0}
-  _progressSlider: {fileID: 0}
-  _upgradeButton: {fileID: 0}
-  _maxLabel: {fileID: 0}

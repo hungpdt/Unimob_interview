@@ -11,17 +11,21 @@ namespace Farm
 
         [SerializeField] private GameObject _boxState;
         [SerializeField] private GameObject _builtState;
-        [SerializeField] private Animation _boxAnimation;
+        [SerializeField] private GameObject[] _fruits;
+        [SerializeField] private float _fruitRevealInterval = 0.15f;
         [SerializeField] private BuildTimerView _timerView;
+        [SerializeField] private ConstructionInfoView _infoView;
         [SerializeField] private GameObject _effBuildDone;
         [SerializeField] private float _buildDuration = 1f;
-
+        
+        private Animation _boxAnimation;
         private const string OpenClip = "BoxOpen";
 
         private DeliveryController _delivery;
         private int _level;
         private bool _isBuilt;
         private bool _isBuilding;
+        private Coroutine _revealRoutine;
 
         public ConstructionConfig Config { get; private set; }
         public int SlotIndex { get; private set; }
@@ -56,7 +60,27 @@ namespace Farm
 
         private void OnMouseDown()
         {
-            if (Config == null || _isBuilt || _isBuilding || UIManager.Instance.IsOpen<ConstructionBuildViewController>())
+            if (Config == null || _isBuilding)
+            {
+                return;
+            }
+
+            if (_isBuilt)
+            {
+                if (UIManager.Instance.IsOpen<ConstructionUpgradeViewController>())
+                {
+                    return;
+                }
+
+                ConstructionUpgradeViewController upgradeView = UIManager.Instance.Show<ConstructionUpgradeViewController>();
+                if (upgradeView != null)
+                {
+                    upgradeView.Bind(this);
+                }
+                return;
+            }
+
+            if (UIManager.Instance.IsOpen<ConstructionBuildViewController>())
             {
                 return;
             }
@@ -135,7 +159,15 @@ namespace Farm
             GameManager.Instance.Stats.GetProfitStat(SlotIndex).BaseValue = Config.BaseProfit;
             GameManager.Instance.Constructions.Register(this);
 
+            _isBuilding = false;
             _isBuilt = true;
+
+            if (_infoView != null)
+            {
+                _infoView.gameObject.SetActive(true);
+                _infoView.Bind(this);
+            }
+
             EventBus.Publish(new ConstructionBuiltEvent { SlotIndex = SlotIndex });
         }
 
@@ -155,6 +187,19 @@ namespace Farm
             {
                 _timerView.gameObject.SetActive(false);
             }
+
+            if (_infoView != null)
+            {
+                _infoView.gameObject.SetActive(false);
+            }
+
+            if (_revealRoutine != null)
+            {
+                StopCoroutine(_revealRoutine);
+                _revealRoutine = null;
+            }
+
+            SetFruitsActive(false);
         }
 
         private void ShowBuilt()
@@ -167,6 +212,50 @@ namespace Farm
             if (_builtState != null)
             {
                 _builtState.SetActive(true);
+            }
+
+            if (_revealRoutine != null)
+            {
+                StopCoroutine(_revealRoutine);
+            }
+
+            _revealRoutine = StartCoroutine(RevealFruitsRoutine());
+        }
+
+        private IEnumerator RevealFruitsRoutine()
+        {
+            if (_fruits != null)
+            {
+                foreach (GameObject fruit in _fruits)
+                {
+                    if (fruit != null)
+                    {
+                        fruit.SetActive(true);
+                    }
+
+                    if (_fruitRevealInterval > 0f)
+                    {
+                        yield return new WaitForSeconds(_fruitRevealInterval);
+                    }
+                }
+            }
+
+            _revealRoutine = null;
+        }
+
+        private void SetFruitsActive(bool active)
+        {
+            if (_fruits == null)
+            {
+                return;
+            }
+
+            foreach (GameObject fruit in _fruits)
+            {
+                if (fruit != null)
+                {
+                    fruit.SetActive(active);
+                }
             }
         }
 

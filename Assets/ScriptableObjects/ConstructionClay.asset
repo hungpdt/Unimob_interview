@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Clay
   Icon: {fileID: 21300000, guid: 40ac2c9f66ad60340ae5ae80eeff9656, type: 3}
-  BaseProfit: 10
+  BaseProfit: 1000
   BuildCost: 10
-  ProduceTime: 10
+  ProduceTime: 12000
   Levels:
   - Cost: 10
     ProfitBonusAdditive: 10
