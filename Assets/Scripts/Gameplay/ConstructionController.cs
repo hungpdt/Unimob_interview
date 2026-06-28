@@ -22,6 +22,8 @@ namespace Farm
 
         private DeliveryController _delivery;
         private int _level;
+        private StatCollection _profitStat;
+        private StatCollection _globalProfitStat;
         private bool _isBuilt;
         private bool _isBuilding;
         private Coroutine _revealRoutine;
@@ -154,7 +156,13 @@ namespace Farm
                 EffectSpawner.Spawn(_effBuildDone, transform.position);
             }
 
-            GameManager.Instance.Stats.GetProfitStat(SlotIndex).BaseValue = Config.BaseProfit;
+            StatService stats = GameManager.Instance.Stats;
+            _profitStat = stats.GetProfitStat(SlotIndex);
+            _profitStat.BaseValue = Config.BaseProfit;
+            _globalProfitStat = stats.GlobalProfit;
+
+            _profitStat.OnChanged += HandleStatsChanged;
+            _globalProfitStat.OnChanged += HandleStatsChanged;
             GameManager.Instance.Constructions.Register(this);
 
             _isBuilding = false;
@@ -185,6 +193,11 @@ namespace Farm
         {
             _delivery = null;
             SpawnDelivery();
+        }
+
+        public void HandleStatsChanged()
+        {
+            OnStatsChanged?.Invoke(this);
         }
 
         private void ShowUnbuilt()
@@ -293,20 +306,18 @@ namespace Farm
             }
 
             double cost = Config.Levels[_level].Cost;
+            float bonus = Config.Levels[_level].ProfitBonusAdditive;
             if (!GameManager.Instance.Currency.TrySpend(cost))
             {
                 return false;
             }
 
-            float bonus = Config.Levels[_level].ProfitBonusAdditive;
+            _level++;
             GameManager.Instance.Stats.AddConstructionProfitModifier(
                 SlotIndex,
                 new StatModifier(ModifierType.Additive, bonus, "Level")
             );
 
-            _level++;
-
-            OnStatsChanged?.Invoke(this);
             EventBus.Publish(new ConstructionUpgradedEvent { SlotIndex = SlotIndex, NewLevel = _level });
 
             return true;
@@ -315,6 +326,19 @@ namespace Farm
         public double Harvest()
         {
             return CurrentProfit;
+        }
+
+        private void OnDestroy()
+        {
+            if (_profitStat != null)
+            {
+                _profitStat.OnChanged -= HandleStatsChanged;
+            }
+
+            if (_globalProfitStat != null)
+            {
+                _globalProfitStat.OnChanged -= HandleStatsChanged;
+            }
         }
     }
 }

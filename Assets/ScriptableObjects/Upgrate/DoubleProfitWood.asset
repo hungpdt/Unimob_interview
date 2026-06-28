@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1cbf7427c79534894c7a112ce13187, type: 3}
+  m_Name: DoubleProfitWood
+  m_EditorClassIdentifier: 
+  Id: 2
+  Title: Wood Profit
+  Description: x2 Profit to Wood
+  Icon: {fileID: 21300000, guid: b506a3b43045c0b49ad14f0339fb6956, type: 3}
+  Cost: 100000
+  EffectType: 1
+  Value: 2
+  TargetConstruction: {fileID: 11400000, guid: 533c009218554954ebdd45618031a8b9, type: 2}

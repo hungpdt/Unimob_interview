@@ -4,8 +4,6 @@ namespace Farm
 {
     public class StatService
     {
-        public const int GlobalScope = -1;
-
         private readonly Dictionary<int, StatCollection> _profitBySlot = new Dictionary<int, StatCollection>();
 
         // BaseValue = 1.0 — contains only Multiplicative modifiers, so Value = Π multipliers
@@ -21,6 +19,11 @@ namespace Farm
             return col;
         }
 
+        public StatCollection GlobalProfit
+        {
+            get { return _globalProfit; }
+        }
+
         public double GetGlobalProfitMultiplier()
         {
             return _globalProfit.Value;
@@ -34,20 +37,6 @@ namespace Farm
         public void AddConstructionProfitModifier(int slot, StatModifier mod)
         {
             GetProfitStat(slot).AddModifier(mod);
-        }
-
-        public void RemoveBySource(object source)
-        {
-            if (source == null)
-            {
-                return;
-            }
-
-            _globalProfit.RemoveAllFromSource(source);
-            foreach (StatCollection col in _profitBySlot.Values)
-            {
-                col.RemoveAllFromSource(source);
-            }
         }
     }
 }

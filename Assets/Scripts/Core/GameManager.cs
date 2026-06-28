@@ -51,7 +51,7 @@ namespace Farm
             Stats         = new StatService();
             Constructions = GetComponentInChildren<ConstructionManager>();
             Market        = GetComponentInChildren<MarketController>();
-            Upgrades      = new UpgradeManager(Currency, Stats);
+            Upgrades      = new UpgradeManager(Currency, Stats, Market, _gameConfig);
 
             if (Constructions == null)
             {

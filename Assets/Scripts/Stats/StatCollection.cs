@@ -50,42 +50,6 @@ namespace Farm
             MarkDirty();
         }
 
-        public bool RemoveModifier(StatModifier mod)
-        {
-            bool removed = _modifiers.Remove(mod);
-            if (removed)
-            {
-                MarkDirty();
-            }
-            return removed;
-        }
-
-        public int RemoveAllFromSource(object source)
-        {
-            if (source == null)
-            {
-                return 0;
-            }
-
-            int removed = _modifiers.RemoveAll(m => Equals(m.Source, source));
-            if (removed > 0)
-            {
-                MarkDirty();
-            }
-            return removed;
-        }
-
-        public void ClearModifiers()
-        {
-            if (_modifiers.Count == 0)
-            {
-                return;
-            }
-
-            _modifiers.Clear();
-            MarkDirty();
-        }
-
         private void MarkDirty()
         {
             _isDirty = true;

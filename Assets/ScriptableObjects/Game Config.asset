@@ -12,14 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9a39e5fc82a7a40b17e27ef1a542aa, type: 3}
   m_Name: Game Config
   m_EditorClassIdentifier: 
-  StartingCoin: 1000
+  StartingCoin: 1000000
   Constructions:
   - {fileID: 11400000, guid: a9393247bcbbff649a5b910420c77ac1, type: 2}
   - {fileID: 11400000, guid: 07221c8787e6d374da7e536cb5204e48, type: 2}
   - {fileID: 11400000, guid: f10ca4a57ec306d4b806166264b406b1, type: 2}
   - {fileID: 11400000, guid: 533c009218554954ebdd45618031a8b9, type: 2}
   Upgrades:
+  - {fileID: 11400000, guid: 7bc29730db5d8224dbe2b6b48f0f4ab8, type: 2}
+  - {fileID: 11400000, guid: f77b53123f49bf64da9a88f5ab3d0201, type: 2}
   - {fileID: 11400000, guid: 450f9dc8b3f55964d9f604bd1a1d92dc, type: 2}
+  - {fileID: 11400000, guid: 48eec5d88fbabd14e8bbbcd774924145, type: 2}
+  - {fileID: 11400000, guid: 501a91372c4a0364da031b481a725ce6, type: 2}
+  - {fileID: 11400000, guid: 6ad6a1ba8952a2142bceb9aab86e226f, type: 2}
+  - {fileID: 11400000, guid: d20d08e1bc358534b86de2c18bdf22c3, type: 2}
+  - {fileID: 11400000, guid: ceeae7987b7cf2d48b161339515598ce, type: 2}
+  - {fileID: 11400000, guid: 1858fd66b64d6d047b6ff4740c08a4ad, type: 2}
+  - {fileID: 11400000, guid: 0a237ac03743ba44fbf8db228abb30fc, type: 2}
+  - {fileID: 11400000, guid: b273355a8d2e8ec488968b8a071d2097, type: 2}
+  - {fileID: 11400000, guid: 4636dded7d10a8e41b7a270c1e0fd34c, type: 2}
   CustomerConfig: {fileID: 11400000, guid: 43d1715adb5f114419dc25490d3d88cf, type: 2}
   DeliveryConfig: {fileID: 11400000, guid: 3ac7ee2613b88ee48aa0601894f9b9ac, type: 2}
   InitialCustomerCount: 1

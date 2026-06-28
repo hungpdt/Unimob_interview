@@ -28,7 +28,7 @@ namespace Farm
                 return;
             }
 
-            int count = Mathf.Min(_plots.Length, config.Constructions.Length);
+            int count = Mathf.Min(_plots.Length, config.ConstructionsConfigs.Length);
             for (int i = 0; i < count; i++)
             {
                 if (_plots[i] == null)
@@ -37,7 +37,7 @@ namespace Farm
                     continue;
                 }
 
-                _plots[i].Initialize(config.Constructions[i], i);
+                _plots[i].Initialize(config.ConstructionsConfigs[i], i);
             }
         }
 

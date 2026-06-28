@@ -48,7 +48,13 @@ namespace Farm
 
         private void OpenUpgradePanel()
         {
-            UIManager.Instance.Show<UpgradeViewController>();
+            UpgradeViewController view = UIManager.Instance.Show<UpgradeViewController>();
+            if (view == null)
+            {
+                return;
+            }
+
+            view.Bind(GameManager.Instance.Config.UpgradeConfigs, GameManager.Instance.Upgrades);
         }
     }
 }
