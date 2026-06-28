@@ -15,7 +15,6 @@ namespace Farm
         public abstract void Tick(float deltaTime);
         public abstract void Exit();
 
-        // Optional hook for animation events (e.g. harvest/receive complete).
         public virtual void OnAnimationEvent(string id) { }
     }
 
@@ -23,10 +22,11 @@ namespace Farm
     {
         public BaseState<TOwner> Current { get; private set; }
 
-        // TODO: Current?.Exit(); Current = next; next.Enter();
         public void ChangeState(BaseState<TOwner> next)
         {
-            // TODO: implement
+            Current?.Exit();
+            Current = next;
+            Current?.Enter();
         }
 
         public void Tick(float deltaTime)

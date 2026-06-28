@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Wheat
   Icon: {fileID: 21300000, guid: 9f6e174293e737a44b0c7c85e4fd86f6, type: 3}
-  BaseProfit: 10
+  BaseProfit: 1000
   BuildCost: 10
   ProduceTime: 12000
   Levels:

@@ -67,7 +67,7 @@ namespace Farm
                 return 0;
             }
 
-            int removed = _modifiers.RemoveAll(m => m.Source == source);
+            int removed = _modifiers.RemoveAll(m => Equals(m.Source, source));
             if (removed > 0)
             {
                 MarkDirty();

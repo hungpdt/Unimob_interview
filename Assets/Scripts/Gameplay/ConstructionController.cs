@@ -7,7 +7,6 @@ namespace Farm
     public class ConstructionController : MonoBehaviour
     {
         [SerializeField] private Transform _harvestPoint;
-        [SerializeField] private Transform _deliverySpawn;
 
         [SerializeField] private GameObject _boxState;
         [SerializeField] private GameObject _builtState;
@@ -34,7 +33,6 @@ namespace Farm
         public bool IsMaxLevel { get { return _level >= MaxLevel; } }
         public bool IsBuilt { get { return _isBuilt; } }
 
-        // Falls back to own transform when HarvestPoint is not assigned in the Inspector
         public Transform HarvestPoint { get { return _harvestPoint != null ? _harvestPoint : transform; } }
 
         public event Action<ConstructionController> OnStatsChanged;
@@ -168,7 +166,25 @@ namespace Farm
                 _infoView.Bind(this);
             }
 
+            SpawnDelivery();
+
             EventBus.Publish(new ConstructionBuiltEvent { SlotIndex = SlotIndex });
+        }
+
+        private void SpawnDelivery()
+        {
+            if (_delivery != null)
+            {
+                return;
+            }
+
+            _delivery = GameManager.Instance.Constructions.SpawnDelivery(this);
+        }
+
+        public void OnDeliveryFinished()
+        {
+            _delivery = null;
+            SpawnDelivery();
         }
 
         private void ShowUnbuilt()

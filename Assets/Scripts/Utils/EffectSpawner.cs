@@ -12,7 +12,7 @@ namespace Farm
                 return;
             }
 
-            var go = Object.Instantiate(prefab, pos, Quaternion.identity);
+            GameObject go = Object.Instantiate(prefab, pos, Quaternion.identity);
             Object.Destroy(go, lifetime);
         }
     }

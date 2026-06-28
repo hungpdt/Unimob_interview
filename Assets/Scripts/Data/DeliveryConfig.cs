@@ -8,6 +8,5 @@ namespace Farm
         public float MoveSpeed;
         public float HarvestDuration;
         public float DeliverDuration;
-        public int CarryCapacity;   // produce units carried per trip
     }
 }

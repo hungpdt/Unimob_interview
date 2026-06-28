@@ -60,6 +60,15 @@ namespace Farm
             }
 
             Constructions.Initialize(_gameConfig);
+
+            if (Market != null)
+            {
+                Market.Initialize(_gameConfig.InitialCustomerCount, _gameConfig.CustomerConfig);
+            }
+            else
+            {
+                Debug.LogError("[GameManager] MarketController not found in children.", this);
+            }
         }
 
         private void Start()

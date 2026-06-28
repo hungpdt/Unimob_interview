@@ -4,11 +4,9 @@ using UnityEngine.AI;
 namespace Farm
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class CustomerController : MonoBehaviour
+    public class CustomerController : CharacterBaseController
     {
         private StateMachine<CustomerController> _machine;
-        private NavMeshAgent _agent;
-        private Animator _animator;
 
         private CustomerIdleState _idle;
         private MoveToDockState _moveToDock;
@@ -31,7 +29,34 @@ namespace Farm
 
         public void Initialize(MarketController market, CustomerConfig config)
         {
-            // TODO: implement
+            if (market == null)
+            {
+                Debug.LogError("[CustomerController] market is null.", this);
+                return;
+            }
+
+            if (config == null)
+            {
+                Debug.LogError("[CustomerController] config is null.", this);
+                return;
+            }
+
+            Market = market;
+            Config = config;
+
+            InitCharacter(config.MoveSpeed);
+
+            Dock = null;
+            IsWaiting = false;
+
+            _machine = new StateMachine<CustomerController>();
+            _idle = new CustomerIdleState(this, _machine);
+            _moveToDock = new MoveToDockState(this, _machine);
+            _wait = new CustomerWaitState(this, _machine);
+            _receive = new ReceiveState(this, _machine);
+            _leave = new CustomerLeaveState(this, _machine);
+
+            _machine.ChangeState(_idle);
         }
 
         private void Update()
@@ -41,23 +66,13 @@ namespace Farm
 
         public void AssignDock(DockController dock)
         {
-            // TODO: implement
+            Dock = dock;
+            _machine.ChangeState(_moveToDock);
         }
 
         public void Receive()
         {
-            // TODO: implement
-        }
-
-        public void SetDestination(Vector3 pos)
-        {
-            // TODO: implement
-        }
-
-        public bool HasArrived(float tolerance)
-        {
-            // TODO: implement
-            return false;
+            _machine.ChangeState(_receive);
         }
     }
 }

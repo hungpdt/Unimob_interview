@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b571489ca6eeb4f901741f1469e745, type: 3}
   m_Name: Customer Config
   m_EditorClassIdentifier: 
-  MoveSpeed: 2
+  MoveSpeed: 5
   WaitTimeout: 2

@@ -11,6 +11,7 @@ namespace Farm
         [SerializeField] private TMP_Text _perMinText;
 
         private ConstructionController _target;
+        private Camera _camera;
 
         public void Bind(ConstructionController construction)
         {
@@ -76,9 +77,14 @@ namespace Farm
 
         private void LateUpdate()
         {
-            if (Camera.main != null)
+            if (_camera == null)
             {
-                transform.rotation = Camera.main.transform.rotation;
+                _camera = Camera.main;
+            }
+
+            if (_camera != null)
+            {
+                transform.rotation = _camera.transform.rotation;
             }
         }
     }

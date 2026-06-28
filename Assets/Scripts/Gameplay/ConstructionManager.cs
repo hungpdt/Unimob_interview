@@ -6,8 +6,11 @@ namespace Farm
     public class ConstructionManager : MonoBehaviour
     {
         [SerializeField] private ConstructionController[] _plots;
+        [SerializeField] private GameObject _deliveryPrefab;
+        [SerializeField] private Transform _deliverySpawn;
 
         private readonly List<ConstructionController> _constructions = new List<ConstructionController>();
+        private PrefabPool _deliveryPool;
 
         public IReadOnlyList<ConstructionController> Constructions { get { return _constructions; } }
 
@@ -47,6 +50,63 @@ namespace Farm
             }
 
             _constructions.Add(construction);
+        }
+
+        public DeliveryController SpawnDelivery(ConstructionController owner)
+        {
+            if (owner == null)
+            {
+                Debug.LogError("[ConstructionManager] SpawnDelivery owner is null.", this);
+                return null;
+            }
+
+            if (_deliveryPrefab == null)
+            {
+                Debug.LogError("[ConstructionManager] _deliveryPrefab is null.", this);
+                return null;
+            }
+
+            MarketController market = GameManager.Instance.Market;
+            if (market == null)
+            {
+                Debug.LogError("[ConstructionManager] GameManager.Market is null.", this);
+                return null;
+            }
+
+            if (_deliveryPool == null)
+            {
+                _deliveryPool = new PrefabPool(_deliveryPrefab);
+            }
+
+            Transform spawn = _deliverySpawn != null ? _deliverySpawn : transform;
+            GameObject go = _deliveryPool.Get(spawn.position, spawn.rotation);
+
+            DeliveryController delivery = go.GetComponent<DeliveryController>();
+            if (delivery == null)
+            {
+                Debug.LogError("[ConstructionManager] _deliveryPrefab has no DeliveryController.", this);
+                Destroy(go);
+                return null;
+            }
+
+            delivery.Initialize(owner, market, GameManager.Instance.Config.DeliveryConfig);
+            return delivery;
+        }
+
+        public void ReleaseDelivery(DeliveryController delivery)
+        {
+            if (delivery == null)
+            {
+                return;
+            }
+
+            if (_deliveryPool == null)
+            {
+                Destroy(delivery.gameObject);
+                return;
+            }
+
+            _deliveryPool.Release(delivery.gameObject);
         }
 
         public ConstructionController GetBySlot(int slotIndex)

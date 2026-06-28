@@ -9,6 +9,8 @@ namespace Farm
         [SerializeField] private Slider _slider;
         [SerializeField] private TMP_Text _label;
 
+        private Camera _camera;
+
         public void SetProgress(float fraction01, float remainingSeconds)
         {
             if (_slider == null || _label == null)
@@ -23,9 +25,14 @@ namespace Farm
         
         private void LateUpdate()
         {
-            if (Camera.main != null)
+            if (_camera == null)
             {
-                transform.rotation = Camera.main.transform.rotation;
+                _camera = Camera.main;
+            }
+
+            if (_camera != null)
+            {
+                transform.rotation = _camera.transform.rotation;
             }
         }
     }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Wood
   Icon: {fileID: 21300000, guid: b506a3b43045c0b49ad14f0339fb6956, type: 3}
-  BaseProfit: 10
+  BaseProfit: 1000
   BuildCost: 10
   ProduceTime: 12000
   Levels:
