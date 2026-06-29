@@ -185,14 +185,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _closeButton: {fileID: 434146147780046328}
   _frame: {fileID: 140311704758732141}
-  _timeText: {fileID: 4730015122797309853}
   _yOffset: 150
   _levelText: {fileID: 5846382487808202088}
   _nameText: {fileID: 6415197139508540439}
-  _costText: {fileID: 8531823355435579015}
+  _costText: {fileID: 8208875674965538370}
   _progressSlider: {fileID: 4417621202779080690}
   _upgradeButton: {fileID: 2981809846927375000}
   _maxLabel: {fileID: 5274094759427081211}
+  _secondText: {fileID: 4730015122797309853}
+  _goldText: {fileID: 8531823355435579015}
 --- !u!1 &1477302191399050860
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +260,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ???
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1291,6 +1292,7 @@ GameObject:
   - component: {fileID: 8940909575743639212}
   - component: {fileID: 2030504141413416423}
   - component: {fileID: 7598242931906617788}
+  - component: {fileID: 2628042656488285645}
   m_Layer: 5
   m_Name: Max
   m_TagString: Untagged
@@ -1367,10 +1369,40 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 2628042656488285645}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2628042656488285645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5274094759427081211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 0.87058824}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 0.25
 --- !u!1 &5869751226278262244
 GameObject:
   m_ObjectHideFlags: 0

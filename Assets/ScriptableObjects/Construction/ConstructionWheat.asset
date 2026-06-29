@@ -14,13 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Wheat
   Icon: {fileID: 21300000, guid: 9f6e174293e737a44b0c7c85e4fd86f6, type: 3}
-  BaseProfit: 1000
-  BuildCost: 10
-  ProduceTime: 12000
+  Yield: 1000
+  ProfitPerMin: 12000
+  BuildCost: 1000
+  ProduceTime: 5
   Levels:
-  - Cost: 10
+  - Cost: 1000
     ProfitBonusAdditive: 10
-  - Cost: 10
-    ProfitBonusAdditive: 10
-  - Cost: 10
-    ProfitBonusAdditive: 10
+  - Cost: 10000
+    ProfitBonusAdditive: 15
+  - Cost: 100000
+    ProfitBonusAdditive: 20
+  - Cost: 1000000
+    ProfitBonusAdditive: 25
+  - Cost: 1000000000
+    ProfitBonusAdditive: 25
+  - Cost: 10000000000
+    ProfitBonusAdditive: 30
+  - Cost: 100000000000
+    ProfitBonusAdditive: 35
+  - Cost: 1000000000000
+    ProfitBonusAdditive: 40
+  - Cost: 10000000000000
+    ProfitBonusAdditive: 45

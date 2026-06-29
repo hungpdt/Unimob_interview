@@ -14,13 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayName: Wood
   Icon: {fileID: 21300000, guid: b506a3b43045c0b49ad14f0339fb6956, type: 3}
-  BaseProfit: 1000
-  BuildCost: 10
-  ProduceTime: 12000
+  Yield: 2000
+  ProfitPerMin: 12000
+  BuildCost: 10000
+  ProduceTime: 10
   Levels:
-  - Cost: 10
+  - Cost: 4000
     ProfitBonusAdditive: 10
-  - Cost: 10
-    ProfitBonusAdditive: 10
-  - Cost: 10
-    ProfitBonusAdditive: 10
+  - Cost: 6000
+    ProfitBonusAdditive: 15
+  - Cost: 8000
+    ProfitBonusAdditive: 20
+  - Cost: 100000
+    ProfitBonusAdditive: 25
+  - Cost: 1000000000
+    ProfitBonusAdditive: 25
+  - Cost: 10000000000
+    ProfitBonusAdditive: 30
+  - Cost: 100000000000
+    ProfitBonusAdditive: 35
+  - Cost: 1000000000000
+    ProfitBonusAdditive: 40
+  - Cost: 10000000000000
+    ProfitBonusAdditive: 45
