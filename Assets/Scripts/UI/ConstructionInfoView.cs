@@ -59,19 +59,14 @@ namespace Farm
                 return;
             }
 
-            double profit = _target.CurrentProfit;
-
             if (_amountText != null)
             {
-                _amountText.text = NumberFormatter.Format(profit);
+                _amountText.text = NumberFormatter.Format(_target.CurrentYield);
             }
 
             if (_perMinText != null)
             {
-                // ProduceTime is seconds per cycle, so per-cycle profit scales to per-minute.
-                float produceTime = _target.Config.ProduceTime;
-                double perMin = produceTime > 0f ? profit * (60.0 / produceTime) : 0.0;
-                _perMinText.text = NumberFormatter.Format(perMin) + "/min";
+                _perMinText.text = NumberFormatter.Format(_target.CurrentProfitPerMin) + "/min";
             }
         }
 

@@ -8,9 +8,10 @@ namespace Farm
     {
         public string DisplayName;
         public Sprite Icon;
-        public double BaseProfit;       // profit per harvest, before buffs
+        public double Yield;            // product units per harvest, before buffs (e.g. 4000 clay)
+        public double ProfitPerMin;     // money per minute, before buffs (e.g. 12000 = 12.0k/min)
         public double BuildCost;
-        public float ProduceTime;       // seconds per cycle — used to calculate X/min display
+        public float ProduceTime;       // seconds per harvest cycle
         public UpgradeLevel[] Levels;   // index 0 = Lv1 (no bonus)
 
         [Serializable]

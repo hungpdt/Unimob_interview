@@ -180,7 +180,7 @@ namespace Farm
 
             StatService stats = GameManager.Instance.Stats;
             _profitStat = stats.GetProfitStat(SlotIndex);
-            _profitStat.BaseValue = Config.BaseProfit;
+            _profitStat.BaseValue = BaseHarvestProfit;
             _globalProfitStat = stats.GlobalProfit;
 
             _profitStat.OnChanged += HandleStatsChanged;
@@ -306,6 +306,7 @@ namespace Farm
             }
         }
 
+        // Per-harvest payout = the sale value. CurrentProfit already includes all buffs.
         public double CurrentProfit
         {
             get
@@ -313,6 +314,37 @@ namespace Farm
                 double local = GameManager.Instance.Stats.GetProfitStat(SlotIndex).Value;
                 double global = GameManager.Instance.Stats.GetGlobalProfitMultiplier();
                 return local * global;
+            }
+        }
+
+        // ProfitPerMin is per-minute; this is the unbuffed per-harvest payout the stat is seeded with.
+        private double BaseHarvestProfit
+        {
+            get { return Config != null ? Config.ProfitPerMin * Config.ProduceTime / 60.0 : 0.0; }
+        }
+
+        // How many times buffs (level %, manage x2/x3, global) have grown profit over its base.
+        public double BuffMultiplier
+        {
+            get
+            {
+                double baseHarvest = BaseHarvestProfit;
+                return baseHarvest > 0.0 ? CurrentProfit / baseHarvest : 1.0;
+            }
+        }
+
+        // Yield grows by the same factor as profit (x2 profit -> x2 yield).
+        public double CurrentYield
+        {
+            get { return Config != null ? Config.Yield * BuffMultiplier : 0.0; }
+        }
+
+        public double CurrentProfitPerMin
+        {
+            get
+            {
+                float produceTime = Config != null ? Config.ProduceTime : 0f;
+                return produceTime > 0f ? CurrentProfit * 60.0 / produceTime : 0.0;
             }
         }
 
