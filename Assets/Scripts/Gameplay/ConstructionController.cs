@@ -6,20 +6,29 @@ namespace Farm
 {
     public class ConstructionController : MonoBehaviour
     {
+        [Header("Scene References")]
         [SerializeField] private Transform _harvestPoint;
-
         [SerializeField] private GameObject _boxState;
         [SerializeField] private GameObject _builtState;
+
+        [Header("Fruits")]
         [SerializeField] private GameObject[] _fruits;
+        [SerializeField] private GameObject _fruitPrefab;
         [SerializeField] private float _fruitRevealInterval = 0.15f;
+
+        [Header("UI")]
         [SerializeField] private BuildTimerView _timerView;
         [SerializeField] private ConstructionInfoView _infoView;
+
+        [Header("Build")]
         [SerializeField] private GameObject _effBuildDone;
         [SerializeField] private float _buildDuration = 1f;
-        
+
         private Animation _boxAnimation;
         private const string OpenClip = "BoxOpen";
 
+        private WaitForSeconds _fruitRevealWait;
+        private Transform[] _fruitSlots;
         private DeliveryController _delivery;
         private int _level;
         private StatCollection _profitStat;
@@ -49,10 +58,23 @@ namespace Farm
 
             Config = config;
             SlotIndex = slotIndex;
+            _fruitRevealWait = new WaitForSeconds(_fruitRevealInterval);
 
             if (_boxAnimation == null && _boxState != null)
             {
                 _boxAnimation = _boxState.GetComponentInChildren<Animation>(true);
+            }
+
+            if (_fruits != null)
+            {
+                _fruitSlots = new Transform[_fruits.Length];
+                for (int i = 0; i < _fruits.Length; i++)
+                {
+                    if (_fruits[i] != null)
+                    {
+                        _fruitSlots[i] = _fruits[i].transform.parent;
+                    }
+                }
             }
 
             ShowUnbuilt();
@@ -255,16 +277,12 @@ namespace Farm
         {
             if (_fruits != null)
             {
-                foreach (GameObject fruit in _fruits)
+                for (int i = 0; i < _fruits.Length; i++)
                 {
-                    if (fruit != null)
+                    if (_fruits[i] != null)
                     {
-                        fruit.SetActive(true);
-                    }
-
-                    if (_fruitRevealInterval > 0f)
-                    {
-                        yield return new WaitForSeconds(_fruitRevealInterval);
+                        _fruits[i].SetActive(true);
+                        yield return _fruitRevealWait;
                     }
                 }
             }
@@ -279,11 +297,11 @@ namespace Farm
                 return;
             }
 
-            foreach (GameObject fruit in _fruits)
+            for (int i = 0; i < _fruits.Length; i++)
             {
-                if (fruit != null)
+                if (_fruits[i] != null)
                 {
-                    fruit.SetActive(active);
+                    _fruits[i].SetActive(active);
                 }
             }
         }
@@ -321,6 +339,72 @@ namespace Farm
             EventBus.Publish(new ConstructionUpgradedEvent { SlotIndex = SlotIndex, NewLevel = _level });
 
             return true;
+        }
+
+        public GameObject[] TakeFruits()
+        {
+            if (_revealRoutine != null)
+            {
+                StopCoroutine(_revealRoutine);
+                _revealRoutine = null;
+            }
+
+            if (_fruits == null)
+            {
+                return Array.Empty<GameObject>();
+            }
+
+            var taken = new GameObject[_fruits.Length];
+            for (int i = 0; i < _fruits.Length; i++)
+            {
+                if (_fruits[i] == null)
+                {
+                    continue;
+                }
+
+                _fruits[i].SetActive(true);
+                _fruits[i].transform.SetParent(null, true);
+                taken[i] = _fruits[i];
+                _fruits[i] = null;
+            }
+
+            return taken;
+        }
+
+        public void RegrowFruits()
+        {
+            if (_fruitPrefab == null)
+            {
+                Debug.LogError("[ConstructionController] _fruitPrefab is null", this);
+                return;
+            }
+
+            if (_fruits == null || _fruits.Length == 0 || _fruitSlots == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < _fruits.Length; i++)
+            {
+                Transform slot = i < _fruitSlots.Length ? _fruitSlots[i] : null;
+                if (slot == null)
+                {
+                    continue;
+                }
+
+                GameObject inst = Instantiate(_fruitPrefab, slot);
+                inst.transform.localPosition = Vector3.zero;
+                inst.transform.localRotation = Quaternion.identity;
+                inst.SetActive(false);
+                _fruits[i] = inst;
+            }
+
+            if (_revealRoutine != null)
+            {
+                StopCoroutine(_revealRoutine);
+            }
+
+            _revealRoutine = StartCoroutine(RevealFruitsRoutine());
         }
 
         public double Harvest()

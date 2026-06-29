@@ -7,17 +7,17 @@ namespace Farm
     public class CustomerController : CharacterBaseController
     {
         private StateMachine<CustomerController> _machine;
-
         private CustomerIdleState _idle;
         private MoveToDockState _moveToDock;
         private CustomerWaitState _wait;
         private ReceiveState _receive;
         private CustomerLeaveState _leave;
 
+        private bool _initialized;
+
         public MarketController Market { get; private set; }
         public CustomerConfig Config { get; private set; }
         public DockController Dock { get; private set; }
-
         public bool IsWaiting { get; set; }
 
         public StateMachine<CustomerController> Machine { get { return _machine; } }
@@ -43,18 +43,20 @@ namespace Farm
 
             Market = market;
             Config = config;
-
-            InitCharacter(config.MoveSpeed);
-
             Dock = null;
             IsWaiting = false;
 
-            _machine = new StateMachine<CustomerController>();
-            _idle = new CustomerIdleState(this, _machine);
-            _moveToDock = new MoveToDockState(this, _machine);
-            _wait = new CustomerWaitState(this, _machine);
-            _receive = new ReceiveState(this, _machine);
-            _leave = new CustomerLeaveState(this, _machine);
+            if (!_initialized)
+            {
+                InitCharacter(config.MoveSpeed);
+                _machine = new StateMachine<CustomerController>();
+                _idle = new CustomerIdleState(this, _machine);
+                _moveToDock = new MoveToDockState(this, _machine);
+                _wait = new CustomerWaitState(this, _machine);
+                _receive = new ReceiveState(this, _machine);
+                _leave = new CustomerLeaveState(this, _machine);
+                _initialized = true;
+            }
 
             _machine.ChangeState(_idle);
         }

@@ -6,5 +6,6 @@ namespace Farm
     public class CustomerConfig : ScriptableObject
     {
         public float MoveSpeed;
+        public float ReceiveDuration = 1.0f;
     }
 }

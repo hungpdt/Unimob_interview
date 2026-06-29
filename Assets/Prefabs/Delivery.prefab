@@ -1323,6 +1323,7 @@ Transform:
   m_Children:
   - {fileID: 6805065296879471203}
   - {fileID: 8703180682405025927}
+  - {fileID: 660753328881455567}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1360,6 +1361,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af15b4a5bba5e22439f6fc4de30d92c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fruitStackOffset: 0.5
+  _fruitGatherDuration: 0.3
+  _fruitFlyDuration: 0.5
+  _fruitTransferStagger: 0.2
+  _fruitAnchor: {fileID: 660753328881455567}
   _payEffect: {fileID: 4690974855142316733, guid: 72af2805ca5894e36b7b259694c36e89, type: 3}
 --- !u!1 &5693225996506118139
 GameObject:
@@ -1423,6 +1429,37 @@ Transform:
   - {fileID: 1677055900567680465}
   m_Father: {fileID: 6805065296879471203}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6427814066210166579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 660753328881455567}
+  m_Layer: 0
+  m_Name: FruitAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &660753328881455567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6427814066210166579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.992, z: -0.081}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6540654423376592508}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6729951307259581104
 GameObject:

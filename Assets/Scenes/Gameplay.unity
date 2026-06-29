@@ -243,6 +243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainView
       objectReference: {fileID: 0}
+    - target: {fileID: 1393881687501547338, guid: 73b8246896ace4b568d8d18c8ea1e2e5, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2475487328554312198, guid: 73b8246896ace4b568d8d18c8ea1e2e5, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0

@@ -23,8 +23,6 @@ namespace Farm
 
     public class MoveToConstructionState : BaseState<DeliveryController>
     {
-        private const float ArriveTolerance = 0.25f;
-
         public MoveToConstructionState(DeliveryController owner, StateMachine<DeliveryController> machine)
             : base(owner, machine) { }
 
@@ -48,6 +46,7 @@ namespace Farm
     public class HarvestState : BaseState<DeliveryController>
     {
         private float _elapsed;
+        private bool _harvested;
 
         public HarvestState(DeliveryController owner, StateMachine<DeliveryController> machine)
             : base(owner, machine) { }
@@ -55,6 +54,7 @@ namespace Farm
         public override void Enter()
         {
             _elapsed = 0f;
+            _harvested = false;
             _owner.StopMovement();
             _owner.SetLocomotion(false, false);
             _owner.FaceToward(_owner.Owner.transform.position);
@@ -62,20 +62,29 @@ namespace Farm
 
         public override void Tick(float deltaTime)
         {
-            _elapsed += deltaTime;
-            if (_elapsed < _owner.Config.HarvestDuration)
+            if (!_harvested)
             {
-                return;
+                _elapsed += deltaTime;
+                if (_elapsed < _owner.Config.HarvestDuration)
+                {
+                    return;
+                }
+
+                _owner.CarriedValue = _owner.Owner.Harvest();
+                _owner.AttachFruits(_owner.Owner.TakeFruits());
+                EventBus.Publish(new HarvestCompletedEvent
+                {
+                    SlotIndex = _owner.Owner.SlotIndex,
+                    Value = _owner.CarriedValue
+                });
+                _harvested = true;
             }
 
-            _owner.CarriedValue = _owner.Owner.Harvest();
-            EventBus.Publish(new HarvestCompletedEvent
+            if (!_owner.IsFruitAnimating)
             {
-                SlotIndex = _owner.Owner.SlotIndex,
-                Value = _owner.CarriedValue
-            });
-
-            _machine.ChangeState(_owner.WaitForCustomerState);
+                _owner.Owner.RegrowFruits();
+                _machine.ChangeState(_owner.WaitForCustomerState);
+            }
         }
 
         public override void Exit() { }
@@ -110,8 +119,6 @@ namespace Farm
 
     public class MoveToMarketState : BaseState<DeliveryController>
     {
-        private const float ArriveTolerance = 0.25f;
-
         public MoveToMarketState(DeliveryController owner, StateMachine<DeliveryController> machine)
             : base(owner, machine) { }
 
@@ -179,19 +186,25 @@ namespace Farm
                 ? dock.CurrencyAnchor.position
                 : _owner.transform.position;
 
+            _owner.Owner.OnDeliveryFinished();
+
             GameManager.Instance.Currency.Add(_owner.CarriedValue);
 
             if (dock != null && dock.Customer != null)
             {
+                _owner.SetSaleContext(_owner.CarriedValue, payPos);
                 dock.Customer.Receive();
+                dock.Customer.AttachFruits(_owner.DetachFruits(), _owner.FruitsDeliveredCallback);
+            }
+            else
+            {
+                _owner.DestroyCarriedFruits();
+                EffectSpawner.Spawn(_owner.PayEffect, payPos);
+                EventBus.Publish(new SaleCompletedEvent { Amount = _owner.CarriedValue, WorldPos = payPos });
             }
 
-            EffectSpawner.Spawn(_owner.PayEffect, payPos);
-            EventBus.Publish(new SaleCompletedEvent { Amount = _owner.CarriedValue, WorldPos = payPos });
-
             dock?.Release();
-            _owner.ReservedDock = null;
-            _owner.CarriedValue = 0d;
+            _owner.ClearSaleData();
         }
 
         public override void Exit() { }
@@ -199,8 +212,6 @@ namespace Farm
 
     public class DeliveryLeaveState : BaseState<DeliveryController>
     {
-        private const float ArriveTolerance = 0.25f;
-
         public DeliveryLeaveState(DeliveryController owner, StateMachine<DeliveryController> machine)
             : base(owner, machine) { }
 

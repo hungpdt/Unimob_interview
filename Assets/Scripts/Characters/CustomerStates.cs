@@ -19,8 +19,6 @@ namespace Farm
 
     public class MoveToDockState : BaseState<CustomerController>
     {
-        private const float ArriveTolerance = 0.25f;
-
         public MoveToDockState(CustomerController owner, StateMachine<CustomerController> machine)
             : base(owner, machine) { }
 
@@ -50,7 +48,7 @@ namespace Farm
         {
             _owner.StopMovement();
             _owner.IsWaiting = true;
-            _owner.SetLocomotion(false, false);
+            _owner.SetLocomotion(false, true);
             if (_owner.Dock != null)
             {
                 _owner.FaceToward(_owner.Dock.transform.position);
@@ -67,8 +65,6 @@ namespace Farm
 
     public class ReceiveState : BaseState<CustomerController>
     {
-        private const float ReceiveDuration = 0.5f;
-
         private float _elapsed;
 
         public ReceiveState(CustomerController owner, StateMachine<CustomerController> machine)
@@ -83,7 +79,7 @@ namespace Farm
         public override void Tick(float deltaTime)
         {
             _elapsed += deltaTime;
-            if (_elapsed >= ReceiveDuration)
+            if (_elapsed >= _owner.Config.ReceiveDuration)
             {
                 _machine.ChangeState(_owner.LeaveState);
             }
@@ -94,8 +90,6 @@ namespace Farm
 
     public class CustomerLeaveState : BaseState<CustomerController>
     {
-        private const float ArriveTolerance = 0.25f;
-
         public CustomerLeaveState(CustomerController owner, StateMachine<CustomerController> machine)
             : base(owner, machine) { }
 
@@ -104,6 +98,7 @@ namespace Farm
             Transform exit = _owner.Market.CustomerExit;
             if (exit == null)
             {
+                _owner.DestroyCarriedFruits();
                 _owner.Market.ReleaseCustomer(_owner);
                 return;
             }
@@ -116,6 +111,7 @@ namespace Farm
         {
             if (_owner.HasArrived(ArriveTolerance))
             {
+                _owner.DestroyCarriedFruits();
                 _owner.Market.ReleaseCustomer(_owner);
             }
         }

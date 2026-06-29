@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Game Config
   m_EditorClassIdentifier: 
   StartingCoin: 1000000
-  Constructions:
+  ConstructionsConfigs:
   - {fileID: 11400000, guid: a9393247bcbbff649a5b910420c77ac1, type: 2}
   - {fileID: 11400000, guid: 07221c8787e6d374da7e536cb5204e48, type: 2}
   - {fileID: 11400000, guid: f10ca4a57ec306d4b806166264b406b1, type: 2}
   - {fileID: 11400000, guid: 533c009218554954ebdd45618031a8b9, type: 2}
-  Upgrades:
+  UpgradeConfigs:
   - {fileID: 11400000, guid: 7bc29730db5d8224dbe2b6b48f0f4ab8, type: 2}
   - {fileID: 11400000, guid: f77b53123f49bf64da9a88f5ab3d0201, type: 2}
   - {fileID: 11400000, guid: 450f9dc8b3f55964d9f604bd1a1d92dc, type: 2}

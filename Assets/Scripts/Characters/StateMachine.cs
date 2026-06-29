@@ -2,6 +2,8 @@ namespace Farm
 {
     public abstract class BaseState<TOwner>
     {
+        protected const float ArriveTolerance = 0.25f;
+
         protected readonly TOwner _owner;
         protected readonly StateMachine<TOwner> _machine;
 
