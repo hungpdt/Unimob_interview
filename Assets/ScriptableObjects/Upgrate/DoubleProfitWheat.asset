@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1cbf7427c79534894c7a112ce13187, type: 3}
   m_Name: DoubleProfitWheat
   m_EditorClassIdentifier: 
-  Id: 1
   Title: Wheat Profit
   Description: x2 Profit to Wheat
   Icon: {fileID: 21300000, guid: 9f6e174293e737a44b0c7c85e4fd86f6, type: 3}
-  Cost: 0
+  Cost: 10000
   EffectType: 0
   Value: 2
   TargetConstruction: {fileID: 11400000, guid: 07221c8787e6d374da7e536cb5204e48, type: 2}

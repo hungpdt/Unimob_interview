@@ -183,13 +183,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5400b9f3f7a8b46911cbe65bd65ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameText: {fileID: 6415197139508540439}
-  _costText: {fileID: 8208875674965538370}
-  _productIcon: {fileID: 280351343313686917}
-  _unlockButton: {fileID: 8756691340383207016}
   _closeButton: {fileID: 6033676621320992324}
   _frame: {fileID: 140311704758732141}
   _yOffset: 150
+  _nameText: {fileID: 6415197139508540439}
+  _costText: {fileID: 8208875674965538370}
+  _productIcon: {fileID: 4580729427478393145}
+  _unlockButton: {fileID: 8756691340383207016}
 --- !u!1 &1968120781761202955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,7 +1063,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8507639825298892918
 RectTransform:
   m_ObjectHideFlags: 0

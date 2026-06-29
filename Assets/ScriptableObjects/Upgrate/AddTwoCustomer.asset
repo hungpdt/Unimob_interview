@@ -15,7 +15,7 @@ MonoBehaviour:
   Title: Add Customer
   Description: + 2 Customer
   Icon: {fileID: 21300000, guid: 4544ffb4d02b34231a4f6e675469a7b7, type: 3}
-  Cost: 10
+  Cost: 10000
   EffectType: 2
   Value: 2
   TargetConstruction: {fileID: 0}

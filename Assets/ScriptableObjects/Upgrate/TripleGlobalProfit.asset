@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1cbf7427c79534894c7a112ce13187, type: 3}
   m_Name: TripleGlobalProfit
   m_EditorClassIdentifier: 
-  Id: 
   Title: Global Profit
   Description: x3 Global Profit
   Icon: {fileID: 21300000, guid: ccd09cdcfe062884e965923a228f88a7, type: 3}
-  Cost: 10
+  Cost: 10000
   EffectType: 0
   Value: 3
   TargetConstruction: {fileID: 0}
