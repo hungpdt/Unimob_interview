@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Farm
 {
     public class UpgradeViewController : BaseViewController
     {
+        [SerializeField] private Button _closeButton;
         [SerializeField] private RectTransform _content;
         [SerializeField] private GameObject _itemPrefab;
 
@@ -35,10 +37,31 @@ namespace Farm
             RefreshAll();
         }
 
+        public override void OnShow()
+        {
+            base.OnShow();
+
+            if (_closeButton != null)
+            {
+                _closeButton.onClick.RemoveListener(OnCloseClicked);
+                _closeButton.onClick.AddListener(OnCloseClicked);
+            }
+        }
+
         public override void OnHide()
         {
+            if (_closeButton != null)
+            {
+                _closeButton.onClick.RemoveListener(OnCloseClicked);
+            }
+
             SubscribeCurrency(false);
             base.OnHide();
+        }
+
+        private void OnCloseClicked()
+        {
+            UIManager.Instance.HideTop();
         }
 
         private void BuildItems()
