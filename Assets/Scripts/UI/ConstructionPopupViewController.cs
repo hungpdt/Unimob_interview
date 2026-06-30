@@ -1,12 +1,9 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Farm
 {
     public abstract class ConstructionPopupViewController : BaseViewController
     {
-        [SerializeField] protected Button _closeButton;
         [SerializeField] protected RectTransform _frame;
         [SerializeField] protected float _yOffset = 60f;
 
@@ -26,32 +23,6 @@ namespace Farm
         }
 
         protected abstract void OnBind();
-
-        public override void OnShow()
-        {
-            base.OnShow();
-
-            if (_closeButton != null)
-            {
-                _closeButton.onClick.RemoveListener(OnCloseClicked);
-                _closeButton.onClick.AddListener(OnCloseClicked);
-            }
-        }
-
-        public override void OnHide()
-        {
-            if (_closeButton != null)
-            {
-                _closeButton.onClick.RemoveListener(OnCloseClicked);
-            }
-
-            base.OnHide();
-        }
-
-        protected void OnCloseClicked()
-        {
-            UIManager.Instance.HideTop();
-        }
 
         protected void PositionAbove(Transform worldTarget)
         {
