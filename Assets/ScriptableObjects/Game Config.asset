@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9a39e5fc82a7a40b17e27ef1a542aa, type: 3}
   m_Name: Game Config
   m_EditorClassIdentifier: 
-  StartingCoin: 100000000000
+  StartingCoin: 1000000
   ConstructionsConfigs:
   - {fileID: 11400000, guid: a9393247bcbbff649a5b910420c77ac1, type: 2}
   - {fileID: 11400000, guid: 07221c8787e6d374da7e536cb5204e48, type: 2}
@@ -34,3 +34,4 @@ MonoBehaviour:
   CustomerConfig: {fileID: 11400000, guid: 43d1715adb5f114419dc25490d3d88cf, type: 2}
   DeliveryConfig: {fileID: 11400000, guid: 3ac7ee2613b88ee48aa0601894f9b9ac, type: 2}
   InitialCustomerCount: 1
+  CheatCoinAmount: 1000000000

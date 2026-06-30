@@ -11,5 +11,6 @@ namespace Farm
         public CustomerConfig CustomerConfig;
         public DeliveryConfig DeliveryConfig;
         public int InitialCustomerCount = 1;
+        public double CheatCoinAmount = 1000000000;
     }
 }

@@ -8,6 +8,7 @@ namespace Farm
     {
         [SerializeField] private TMP_Text _coinText;
         [SerializeField] private Button _openUpgradeButton;
+        [SerializeField] private Button _cheatMoneyButton;
 
         private CurrencyManager _currency;
 
@@ -27,6 +28,11 @@ namespace Farm
                 _openUpgradeButton.onClick.AddListener(OpenUpgradePanel);
             }
 
+            if (_cheatMoneyButton != null)
+            {
+                _cheatMoneyButton.onClick.AddListener(CheatMoney);
+            }
+
             OnCoinChanged(_currency.Coin);
         }
 
@@ -36,6 +42,11 @@ namespace Farm
             {
                 _currency.OnCoinChanged -= OnCoinChanged;
             }
+        }
+
+        private void CheatMoney()
+        {
+            _currency.Add(GameManager.Instance.Config.CheatCoinAmount);
         }
 
         private void OnCoinChanged(double coin)
