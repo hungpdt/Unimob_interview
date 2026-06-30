@@ -134,6 +134,7 @@ namespace Farm
                 return;
             }
 
+            _owner.FaceToward(_owner.ReservedDock.DeliveryAnchor.position);
             _owner.SetDestination(_owner.ReservedDock.DeliveryAnchor.position);
             _owner.SetLocomotion(true, true);
         }

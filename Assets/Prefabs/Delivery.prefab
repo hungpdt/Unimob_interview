@@ -1361,8 +1361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af15b4a5bba5e22439f6fc4de30d92c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _turnAlignAngle: 200
   _fruitStackOffset: 0.5
-  _fruitGatherDuration: 0.3
   _fruitFlyDuration: 0.5
   _fruitTransferStagger: 0.2
   _fruitAnchor: {fileID: 660753328881455567}
